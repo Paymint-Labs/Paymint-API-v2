@@ -10,6 +10,11 @@
 - Supports custom Esplora-Electrs servers
 - Open source, minimal and privacy preserving wallet analytics
 
-### Coming soon
+## Instructions for self-hosting the API
+The project is fully self deployable already but documentation for this is still under way :/
 
-- Custodial Lightning Setup
+NOTE: Add custom firebase project config under functions/util/config.js
+
+## A note on analytics
+
+Since financial privacy is important (especially when it comes to Bitcoin), it's paramount to explain what kind of data the server collects, what is stored, and what is discarded of.
