@@ -1,7 +1,5 @@
 # Paymint-API-v2
 
----
-
 ## A Quick Overview
 
 - Firebase cloud functions for data retrieval and processing
