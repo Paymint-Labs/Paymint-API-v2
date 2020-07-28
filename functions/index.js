@@ -1,6 +1,8 @@
 const functions = require("firebase-functions");
 const app = require("express")(); // Import and initialize express
 
+const { getOutputDataForWallet } = require('./handlers/output-data.handler');
+
 // Main Routes
 app.post("/outputData", getOutputDataForWallet);
 app.post("/txData", getTransactionDataForWallet);
