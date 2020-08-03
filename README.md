@@ -5,7 +5,7 @@
 - Firebase cloud functions for data retrieval and processing
 - Firestore to store price quotes on user transactions
 - Fully self-deployable
-- Supports custom Esplora-Electrs servers
+- Supports custom [Esplora-Electrs](https://github.com/Blockstream/electrs) servers
 - Open source, minimal and privacy preserving wallet analytics
 
 ## Instructions for self-hosting the API
