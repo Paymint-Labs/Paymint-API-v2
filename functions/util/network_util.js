@@ -1,7 +1,7 @@
 // The following functions are network utility/helper functions to be used wherever necessary.
 
 const axios = require("axios").default;
-const { admin, db } = require('./admin');
+const { admin, db } = require("./admin");
 
 /**
  * Returns the result of the HTTP endpoint passed to [url]
@@ -20,6 +20,6 @@ exports.singleEndpointCall = (url) => {
  * @param {string[]} endpointArray
  */
 exports.multiEndpointCall = (endpointArray) => {
-  let responseArray = endpointArray.map(singleEndpointCall);
+  let responseArray = endpointArray.map(this.singleEndpointCall);
   return axios.all(responseArray).catch((err) => console.error(err));
 };
