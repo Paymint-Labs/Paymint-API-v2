@@ -17,8 +17,6 @@ NOTE: I'm filling out the documentation as fast as I can but this is a time cons
 
 ## Endpoint Overview
 
----
-
 ### Main Endpoints
 
 | Endpoint Name | Description                                                                                                                                                                                                                                |
@@ -31,5 +29,12 @@ NOTE: I'm filling out the documentation as fast as I can but this is a time cons
 ---
 
 ### Miscellaneous Endpoints
+
+| Endpoint Name           | Description                                                                                           |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| /currentBitcoinPrice    | Fetches the current price of Bitcoin in the specified currency                                        |
+| /historicalBitcoinPrice | Fetches the price of Bitcoin from Firestore at the timestamp specified, in the currency specified.    |
+| /fees                   | Returns the fee density for transaction confirmation in 1,3,5,7 or 9 blocks                           |
+| /txCount                | Returns the number of transactions for the specified address. Tx count lookups stop by default at 25. |
 
 </br>
