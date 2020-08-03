@@ -1,14 +1,15 @@
 const { singleEndpointCall } = require("../util/network_util");
 
 exports.getFeeDensity = async (req, res) => {
-  return res.json(await fetchCurrentFeeDensity());
+  const url = req.body.url;
+  return res.json(await fetchCurrentFeeDensity(url));
 };
 
 // Handler logic
 
-fetchCurrentFeeDensity = async () => {
+fetchCurrentFeeDensity = async (url) => {
   const feeRatesPerBlocktime = await singleEndpointCall(
-    "https://blockstream.info/api/fee-estimates"
+    `${url}/fee-estimates`
   ).catch((err) => console.error(err));
 
   let feeObj = {};
