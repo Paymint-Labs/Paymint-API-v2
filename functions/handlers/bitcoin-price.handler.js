@@ -29,9 +29,12 @@ exports.getBitcoinPrice = async (req, res) => {
  */
 exports.getHistorialPrice = async (req, res) => {
   const timestamp = req.body.timestamp;
+  const currency = req.body.currency;
   const cryptocompareKey = functions.config().cryptocompare.key;
 
-  const data = await this.historicPriceFetch(timestamp, cryptocompareKey);
+  const data = await this.historicPriceFetch(timestamp, cryptocompareKey)[
+    currency
+  ];
   return res.json(data);
 };
 
