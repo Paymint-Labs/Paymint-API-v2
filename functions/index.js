@@ -21,7 +21,7 @@ app.post("/pushtx", pushTransaction);
 // Miscellaneous Routes
 app.post("/currentBitcoinPrice", getBitcoinPrice);
 app.post("/historicalBitcoinPrice", getHistorialPrice);
-app.get("/fees", getFeeDensity);
+app.post("/fees", getFeeDensity);
 app.post("/txCount", getTxCountForAddress);
 
 exports.api = functions.https.onRequest(app); // Serve the express routes via the /api endpoint on the main URI
