@@ -17,6 +17,8 @@ NOTE: I'm filling out the documentation as fast as I can but this is a time cons
 
 ### Main Endpoints
 
+All endpoints accept POST methods.
+
 | Endpoint Name | Description                                                                                                                                                                                                                                |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | /txData       | Fetches transaction data associated with the wallet. Grouped and organised by date. Allows custom Electrs-Esplora endpoint to be specified                                                                                                 |
