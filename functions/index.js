@@ -8,10 +8,8 @@ const { getAddressForIndexTx } = require("./handlers/voutlookup.handler");
 const { getOutputDataForWallet } = require("./handlers/output-data.handler");
 const { getTransactionDataForWallet } = require("./handlers/tx-data.handler");
 const { getMarketInfo } = require("./handlers/market-info.handler");
-const {
-  getBitcoinPrice,
-  getHistorialPrice,
-} = require("./handlers/bitcoin-price.handler");
+const { getChartInfo } = require("./handlers/chart-info.handler");
+const { getBitcoinPrice, getHistorialPrice } = require("./handlers/bitcoin-price.handler");
 
 // Main Routes
 app.post("/outputData", getOutputDataForWallet);
@@ -25,5 +23,6 @@ app.post("/historicalBitcoinPrice", getHistorialPrice);
 app.post("/fees", getFeeDensity);
 app.post("/txCount", getTxCountForAddress);
 app.post("/getMarketInfo", getMarketInfo);
+app.post("/getChartInfo", getChartInfo);
 
 exports.api = functions.https.onRequest(app); // Serve the express routes via the /api endpoint on the main URI

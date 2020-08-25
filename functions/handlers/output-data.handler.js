@@ -15,18 +15,12 @@ exports.getOutputDataForWallet = async (req, res) => {
   const currency = req.body.currency;
   const url = req.body.url;
 
-  return res.json(
-    await retrieveOutputAndBalanceDataForWallet(allAddresses, currency, url)
-  );
+  return res.json(await retrieveOutputAndBalanceDataForWallet(allAddresses, currency, url));
 };
 
 // Handler logic below
 
-retrieveOutputAndBalanceDataForWallet = async (
-  allAddresses,
-  currency,
-  EsploraUrl
-) => {
+retrieveOutputAndBalanceDataForWallet = async (allAddresses, currency, EsploraUrl) => {
   const cryptocompareKey = functions.config().cryptocompare.key;
 
   let endpointArray = [];
@@ -46,8 +40,7 @@ retrieveOutputAndBalanceDataForWallet = async (
         const output = outputDataArray[j];
 
         outputArray.push(output);
-        if (output.status.confirmed === true)
-          satoshiBalance += parseInt(output.value);
+        if (output.status.confirmed === true) satoshiBalance += parseInt(output.value);
       }
     }
   });

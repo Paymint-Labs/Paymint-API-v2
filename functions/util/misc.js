@@ -20,5 +20,6 @@ exports.convertToDisplayPrice = (price, currency) => {
     currency: currency,
     style: "currency",
   });
+
   return UnitedStatesFormat.format(price);
 };
