@@ -1,23 +1,12 @@
 const { multiEndpointCall } = require("../util/network_util");
-const {
-  buildDatetimeChunks,
-  duplicateTransactionCheck,
-  sortTransactionArray,
-} = require("../util/sorting_util");
+const { buildDatetimeChunks, duplicateTransactionCheck, sortTransactionArray } = require("../util/sorting_util");
 
 exports.getTransactionDataForWallet = async (req, res) => {
   const allAddresses = req.body.allAddresses;
   let currency = req.body.currency;
   let changeArray = req.body.changeAddresses;
 
-  return res.json(
-    await transactionDataLookup(
-      allAddresses,
-      currency,
-      changeArray,
-      req.body.url
-    )
-  );
+  return res.json(await transactionDataLookup(allAddresses, currency, changeArray, req.body.url));
 };
 
 // Handler logic
@@ -37,8 +26,7 @@ transactionDataLookup = async (allAddresses, currency, changeArray, url) => {
 
         for (let j = 0; j < txArray.length; j++) {
           const tx = txArray[j];
-          if (duplicateTransactionCheck(allTxsArray, tx.txid) === false)
-            allTxsArray.push(tx);
+          if (duplicateTransactionCheck(allTxsArray, tx.txid) === false) allTxsArray.push(tx);
         }
       }
     })
@@ -46,12 +34,7 @@ transactionDataLookup = async (allAddresses, currency, changeArray, url) => {
       console.error(err);
     });
 
-  const sortedTxArray = await sortTransactionArray(
-    allTxsArray,
-    allAddresses,
-    currency,
-    changeArray
-  );
+  const sortedTxArray = await sortTransactionArray(allTxsArray, allAddresses, currency, changeArray);
 
   const data = buildDatetimeChunks(sortedTxArray);
 

@@ -55,9 +55,9 @@ retrieveOutputAndBalanceDataForWallet = async (allAddresses, currency, EsploraUr
     outputArray[i].fiatWorth = convertToDisplayPrice(outputBtcPrice, currency);
   }
 
-  outputArray.sort((a, b) => {
-    return (b.value = a.value);
-  });
+  // outputArray.sort((a, b) => {
+  //   return (b.value = a.value);
+  // });
 
   return {
     total_user_currency: convertToDisplayPrice(currencyBalanceRaw, currency),

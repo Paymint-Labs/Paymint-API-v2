@@ -1,9 +1,6 @@
 // The following functions are sorting utility/helper functions to be used wherever necessary
 const { extractDateFromTimestamp, convertToDisplayPrice } = require("./misc");
-const {
-  currentPriceLookup,
-  historicPriceFetch,
-} = require("../handlers/bitcoin-price.handler");
+const { currentPriceLookup, historicPriceFetch } = require("../handlers/bitcoin-price.handler");
 const functions = require("firebase-functions");
 
 /**
@@ -64,12 +61,7 @@ exports.buildDatetimeChunks = (txArray) => {
  * @param {string} currency
  * @param {string[]} changeAddresses
  */
-exports.sortTransactionArray = async (
-  txArray,
-  allAddresses,
-  currency,
-  changeAddresses
-) => {
+exports.sortTransactionArray = async (txArray, allAddresses, currency, changeAddresses) => {
   const cryptocompareKey = functions.config().cryptocompare.key;
   // const cryptocompareKey =
   //   "650ac229320ae8d475fce6df4650fd8a05f77e591060d2e5603ea10294489250";
@@ -97,9 +89,7 @@ exports.sortTransactionArray = async (
     });
 
     // Checks for user controlled addresses in each transaction's input array and marks tyType accordingly
-    const foundInSenders = allAddresses.some((address) =>
-      sendersArray.includes(address)
-    );
+    const foundInSenders = allAddresses.some((address) => sendersArray.includes(address));
 
     // If txType = Sent, then calulate inputAmtSentFromWallet, calculate who received how much in aliens array (check outputs)
     if (foundInSenders) {
@@ -150,28 +140,17 @@ exports.sortTransactionArray = async (
   }
 
   // Loop through midSortedTxArray and add worthAtBlockTimestamp property to every object
-  // Cannot use foreach because of async-await restrictions, use normal for instead
+  // Cannot use foreach because of async restrictions, use normal for instead
   for (let i = 0; i < midSortedTxArray.length; i++) {
     let transaction = midSortedTxArray[i];
 
-    let priceAtBlockTimestamp = await historicPriceFetch(
-      transaction.timestamp,
-      cryptocompareKey
-    )[currency];
+    let priceAtBlockTimestamp = await historicPriceFetch(transaction.timestamp, cryptocompareKey, currency);
 
-    let worthAtBlockTimestampRaw =
-      priceAtBlockTimestamp * (transaction.amount / 100000000);
+    let worthAtBlockTimestampRaw = priceAtBlockTimestamp * (transaction.amount / 100000000);
 
-    transaction.worthAtBlockTimestamp = convertToDisplayPrice(
-      worthAtBlockTimestampRaw,
-      currency
-    );
+    transaction.worthAtBlockTimestamp = convertToDisplayPrice(worthAtBlockTimestampRaw, currency);
 
-    if (
-      transaction.worthAtBlockTimestamp.substr(
-        transaction.worthAtBlockTimestamp.length - 3
-      ) === "NaN"
-    ) {
+    if (transaction.worthAtBlockTimestamp.substr(transaction.worthAtBlockTimestamp.length - 3) === "NaN") {
       transaction.worthAtBlockTimestamp = "---";
     }
   }

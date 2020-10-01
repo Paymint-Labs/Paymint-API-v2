@@ -1,7 +1,4 @@
-const {
-  singleEndpointCall,
-  multiEndpointCall,
-} = require("../util/network_util");
+const { singleEndpointCall, multiEndpointCall } = require("../util/network_util");
 const functions = require("firebase-functions");
 const { admin, db } = require("../util/admin");
 
@@ -32,9 +29,7 @@ exports.getHistorialPrice = async (req, res) => {
   const currency = req.body.currency;
   const cryptocompareKey = functions.config().cryptocompare.key;
 
-  const data = await this.historicPriceFetch(timestamp, cryptocompareKey)[
-    currency
-  ];
+  const data = await this.historicPriceFetch(timestamp, cryptocompareKey, currency);
   return res.json(data);
 };
 
@@ -48,19 +43,20 @@ exports.currentPriceLookup = async (currency, apiKey) => {
 };
 
 // This is the main function that'll be used in the transaction endpoints
-exports.historicPriceFetch = async (timestamp, apiKey) => {
+exports.historicPriceFetch = async (timestamp, apiKey, currency) => {
   const documentSnapshot = await db.doc(`/pricequote/${timestamp}`).get();
 
   if (documentSnapshot.exists) {
     console.log(
       `Price document with reference timestamp ${timestamp} requested and found in firestore. Serving document...`
     );
-    return documentSnapshot.data();
+    // console.log(documentSnapshot.data().USD.toString() + "is the price in USD baby");
+    return documentSnapshot.data()[currency];
   } else {
     console.log(
       `Price document with reference timestamp ${timestamp} requested and not found in firestore. Fetching pricing data from cryptocompare...`
     );
-    return await this.historicPriceLookup(timestamp, apiKey);
+    return await this.historicPriceLookup(timestamp, apiKey)[currency];
   }
 };
 
@@ -92,9 +88,8 @@ exports.historicPriceLookup = async (timestamp, apiKey) => {
     );
   });
 
-  const responseArray = await multiEndpointCall(endpointArray).catch((err) =>
-    console.error(err)
-  );
+  console.log(timestamp);
+  const responseArray = await multiEndpointCall(endpointArray).catch((err) => console.error(err));
   responseArray.forEach((priceResponse, index) => {
     currencyDocument[currencyArray[index]] = priceResponse.Data.Data[1].close;
   });

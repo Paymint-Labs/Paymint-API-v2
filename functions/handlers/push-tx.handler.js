@@ -4,9 +4,7 @@ exports.pushTransaction = async (req, res) => {
   const hex = req.body.hex;
   const url = req.body.url;
 
-  return res
-    .json(await sendHexToNetwork(hex, url))
-    .catch((err) => console.error(err));
+  return res.json(await sendHexToNetwork(hex, url));
 };
 
 // Handler logic

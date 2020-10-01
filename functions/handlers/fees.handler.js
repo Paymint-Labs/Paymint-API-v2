@@ -8,16 +8,14 @@ exports.getFeeDensity = async (req, res) => {
 // Handler logic
 
 fetchCurrentFeeDensity = async (url) => {
-  const feeRatesPerBlocktime = await singleEndpointCall(
-    `${url}/fee-estimates`
-  ).catch((err) => console.error(err));
+  const feeRatesPerBlocktime = await singleEndpointCall(`${url}/fee-estimates`).catch((err) => console.error(err));
 
   let feeObj = {};
 
-  feeObj["very-fast"] = feeRatesPerBlocktime["1"];
-  feeObj["fast"] = feeRatesPerBlocktime["3"];
-  feeObj["average"] = feeRatesPerBlocktime["5"];
-  feeObj["slow"] = feeRatesPerBlocktime["7"];
-  feeObj["very-slow"] = feeRatesPerBlocktime["9"];
+  feeObj["very-fast"] = parseFloat(feeRatesPerBlocktime["1"].toFixed(2));
+  feeObj["fast"] = parseFloat(feeRatesPerBlocktime["3"].toFixed(2));
+  feeObj["average"] = parseFloat(feeRatesPerBlocktime["5"].toFixed(2));
+  feeObj["slow"] = parseFloat(feeRatesPerBlocktime["7"].toFixed(2));
+  feeObj["very-slow"] = parseFloat(feeRatesPerBlocktime["9"].toFixed(2));
   return feeObj;
 };

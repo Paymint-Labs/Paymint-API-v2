@@ -9,9 +9,7 @@ exports.getAddressForIndexTx = async (req, res) => {
 };
 
 checkAddressAtIndex = async (txid, index, url) => {
-  const data = await singleEndpointCall(`${url}/tx/${txid}`).catch((err) =>
-    console.error(err)
-  );
+  const data = await singleEndpointCall(`${url}/tx/${txid}`).catch((err) => console.error(err));
 
-  return data.vout[index.scriptpubkey_address];
+  return data.vout[index].scriptpubkey_address;
 };

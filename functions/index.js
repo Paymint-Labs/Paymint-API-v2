@@ -10,16 +10,18 @@ const { getTransactionDataForWallet } = require("./handlers/tx-data.handler");
 const { getMarketInfo } = require("./handlers/market-info.handler");
 const { getChartInfo } = require("./handlers/chart-info.handler");
 const { getBitcoinPrice, getHistorialPrice } = require("./handlers/bitcoin-price.handler");
+const { signPurchaseRequest } = require("./handlers/sign-purchase-req.handler");
 
 // Main Routes
 app.post("/outputData", getOutputDataForWallet);
 app.post("/txData", getTransactionDataForWallet);
 app.post("/voutLookup", getAddressForIndexTx);
 app.post("/pushtx", pushTransaction);
+app.post("/signPurchaseRequest", signPurchaseRequest);
 
 // Miscellaneous Routes
-app.post("/currentBitcoinPrice", getBitcoinPrice);
-app.post("/historicalBitcoinPrice", getHistorialPrice);
+app.post("/currentBitcoinPrice", getBitcoinPrice); // Bitcoin Price handler
+app.post("/historicalBitcoinPrice", getHistorialPrice); // Bitcoin Price handler
 app.post("/fees", getFeeDensity);
 app.post("/txCount", getTxCountForAddress);
 app.post("/getMarketInfo", getMarketInfo);
