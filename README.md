@@ -1,6 +1,6 @@
 # Paymint-API-v2
 
-NOTE: I'm filling out the documentation as fast as I can but this is a time consuming process so please be patient with me
+NOTE: This is no longer maintained and the docs are incomplete. if you need this, just read the code and figure it out lmao
 
 ## A Quick Overview
 
